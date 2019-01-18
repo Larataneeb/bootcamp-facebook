@@ -22,6 +22,26 @@ class Users extends Component {
       />
     ))
     return (
+      <Query query={GET_USERS}>
+      {({ data, loading, error }) => {
+        if (loading) return < Loading />;
+        if (error) return <p>ERROR</p>;
+
+        
+          <Fragment>
+            <Header />
+            {data.launches &&
+              data.launches.launches &&
+              data.launches.launches.map(launch => (
+                <LaunchTile
+                  key={launch.id}
+                  launch={launch}
+                />
+              ))}
+          </Fragment>
+        
+      }}
+    </Query>
       <Container>
         <Header>
           <SearchBar
@@ -32,8 +52,8 @@ class Users extends Component {
         </Header>
         <UsersContainer>{users}</UsersContainer>
       </Container>
-    )
+    
   }
-}
+
 
 export default Users
